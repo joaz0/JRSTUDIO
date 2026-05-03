@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfólio JR</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080808;
+    --surface: #111111;
+    --surface2: #1a1a1a;
+    --accent: #c8ff00;
+    --accent2: #00ffb2;
+    --text: #f0ede6;
+    --muted: #888880;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 2.5rem;
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-cta {
+    background: var(--accent);
+    color: #080808;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.55rem 1.2rem;
+    border-radius: 999px;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    padding: 0 2.5rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(200,255,0,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,255,178,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+  .hero h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+    max-width: 700px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 2.5rem auto;
+    line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--accent);
+    color: #080808;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.9rem 2rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+  .btn-ghost {
+    display: inline-flex; align-items: center;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.9rem 2rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.25); }
+
+  .hero-stats {
+    position: relative; 
+    right: auto; 
+    bottom: auto;
+    display: flex; 
+    flex-direction: row; 
+    gap: 4rem;
+    text-align: center;
+    margin-top: 4rem;
+    justify-content: center;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-top: 0.25rem;
+  }
+
+  /* SECTIONS */
+  section { 
+    padding: 6rem 2.5rem; 
+    max-width: 1100px; 
+    margin: 0 auto; 
+    text-align: center;
+  }
+
+  .section-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.18em;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-desc {
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 3.5rem auto;
+    line-height: 1.7;
+  }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .service-card {
+    background: var(--surface);
+    padding: 2.2rem;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .service-card:hover { background: var(--surface2); }
+  .service-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: rgba(200,255,0,0.08);
+    border: 1px solid rgba(200,255,0,0.15);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+  }
+  .service-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+  .service-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+  }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    padding: 0.3rem 0.7rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .service-price {
+    position: absolute; top: 2.2rem; right: 2.2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.25s, border-color 0.25s;
+    cursor: pointer;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(200,255,0,0.2);
+  }
+  .project-thumb {
+    height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 3.5rem;
+    letter-spacing: -0.03em;
+    position: relative;
+    overflow: hidden;
+  }
+  .thumb-1 { background: linear-gradient(135deg, #0d1a0a 0%, #1a3310 100%); color: var(--accent); }
+  .thumb-2 { background: linear-gradient(135deg, #0a0d1a 0%, #101a33 100%); color: #7fb3ff; }
+  .thumb-3 { background: linear-gradient(135deg, #1a0a0d 0%, #331015 100%); color: #ff7f9f; }
+  .project-info { padding: 1.4rem; }
+  .project-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+  }
+  .project-info h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+  .project-info p { font-size: 0.85rem; color: var(--muted); }
+
+  /* PROCESS */
+  .process-steps { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 0;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    color: var(--accent);
+    line-height: 1;
+    transition: color 0.3s;
+  }
+  .step-content h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+  }
+  .step-content p { font-size: 0.9rem; color: var(--muted); }
+
+  /* CTA SECTION */
+  .cta-section {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .cta-inner {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 6rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-inner::before {
+    content: '';
+    position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(200,255,0,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-inner h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+  }
+  .cta-inner h2 em { font-style: normal; color: var(--accent); }
+  .cta-inner p { color: var(--muted); margin-bottom: 2.5rem; font-size: 1rem; }
+  .cta-whatsapp {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    background: var(--accent);
+    color: #080808;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 1.1rem 2.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .cta-whatsapp:hover { transform: scale(1.03); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  footer p { font-size: 0.8rem; color: var(--muted); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--text); }
+
+  /* SCROLL ANIMATION */
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.2rem; }
+    .hero { padding: 0 1.2rem 4rem; }
+    .hero-stats { display: none; }
+    section { padding: 4rem 1.2rem; }
+    .step { grid-template-columns: 50px 1fr; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Joaz<span>.</span>Rodrigues</a>
+  <a href="https://wa.me/5535992669710?text=Oi!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20saber%20mais" class="nav-cta" target="_blank">FALAR AGORA</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-tag">✦ FREELANCER DE WEB + DESIGN · SOB MEDIDA</p>
+  <h1>Seu projeto<br>pronto em<br><em>48 horas.</em></h1>
+  <p class="hero-sub">Sou Joaz — especialista em transformar ideias em websites que vendem e apps que funcionam. Trabalho com garantia: se não gostar, devoluço 100% do investimento.</p>
+  <div class="hero-actions">
+    <a href="https://wa.me/5535992669710?text=Oi!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20saber%20mais" class="btn-primary" target="_blank">
+      💬 Chamar agora
+    </a>
+    <a href="#sobre" class="btn-ghost">Conhecer meu trabalho →</a>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">48h</div>
+      <div class="stat-label">ENTREGA RÁPIDA</div>
+    </div>
+    <div>
+      <div class="stat-num">100%</div>
+      <div class="stat-label">GARANTIA</div>
+    </div>
+    <div>
+      <div class="stat-num">2h</div>
+      <div class="stat-label">RESPOSTA</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="servicos" class="fade-in">
+  <p class="section-tag">// O QUE VOCÊ RECEBE</p>
+  <h2 class="section-title">Pacotes Prontos</h2>
+  <p class="section-desc">Três formatos para diferentes necessidades. Todos com entrega rápida, design profissional e suporte incluso.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-price">R$ 400</div>
+      <div class="service-icon">🚀</div>
+      <h3>Starter</h3>
+      <p>Perfeito para testar a ideia. Landing page simples, responsiva, otimizada e pronta para vender.</p>
+      <div class="service-tags">
+        <span class="tag">1 página</span>
+        <span class="tag">Design profissional</span>
+        <span class="tag">Mobile friendly</span>
+        <span class="tag">48h</span>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-price">R$ 800</div>
+      <div class="service-icon">⚡</div>
+      <h3>Growth</h3>
+      <p>Site completo com múltiplas seções, formulários funcionais, blog e integração com ferramentas.</p>
+      <div class="service-tags">
+        <span class="tag">5-10 páginas</span>
+        <span class="tag">Formulários</span>
+        <span class="tag">SEO básico</span>
+        <span class="tag">5 dias</span>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="service-price">R$ 1.500</div>
+      <div class="service-icon">🎯</div>
+      <h3>Premium</h3>
+      <p>Solução completa: site + painel administrativo + integrações + suporte de 1 mês.</p>
+      <div class="service-tags">
+        <span class="tag">Tudo customizado</span>
+        <span class="tag">Painel admin</span>
+        <span class="tag">Integrações</span>
+        <span class="tag">7-10 dias</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="sobre" class="fade-in">
+  <p class="section-tag">// QUEM SOU EU</p>
+  <h2 class="section-title">Joaz Rodrigues</h2>
+  <p class="section-desc">Freelancer especializado em criar websites que vendem e aplicações web que funcionam. Desde 2020 ajudo startups, pequenos negócios e empreendedores a ter presença digital profissional sem pagar agência.</p>
+
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-thumb thumb-1">📈</div>
+      <div class="project-info">
+        <p class="project-type">ESPECIALIDADE</p>
+        <h3>Landing Pages que Convertem</h3>
+        <p>Design + copywriting + otimização = página que vende. Sem gambiarras. Entrega em 48h.</p>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb thumb-2">⚙️</div>
+      <div class="project-info">
+        <p class="project-type">ESPECIALIDADE</p>
+        <h3>Apps Web Funcionais</h3>
+        <p>Painéis administrativos, ferramentas internas e SaaS simples. Interface limpa. Sem bugs.</p>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb thumb-3">💎</div>
+      <div class="project-info">
+        <p class="project-type">ESPECIALIDADE</p>
+        <h3>Design + Branding</h3>
+        <p>Identidade visual completa. Do logo até os templates para redes sociais, tudo coeso.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="processo" class="fade-in">
+  <p class="section-tag">// DIFERENCIAL</p>
+  <h2 class="section-title">Por que trabalhar<br>comigo?</h2>
+  <p class="section-desc">Simples: você não contrata um freelancer, contrata um parceiro que quer que seu projeto funcione.</p>
+
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">✓</div>
+      <div class="step-content">
+        <h3>Entrega em 48h (sem risco)</h3>
+        <p>Se você não gostar, devoluço 100% do investimento. Sem discussão, sem burocracia.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">✓</div>
+      <div class="step-content">
+        <h3>Design + Código (uma pessoa)</h3>
+        <p>Sem esperar aprovação de design para começar o código. Tudo integrado, tudo coeso.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">✓</div>
+      <div class="step-content">
+        <h3>Comunicação direta</h3>
+        <p>Você fala direto comigo. WhatsApp, Telegram, email. Respondo em até 2h.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">✓</div>
+      <div class="step-content">
+        <h3>Suporte após entrega</h3>
+        <p>Pequenas correções e ajustes inclusos por 30 dias. Nada de cobrança adicional por bobeira.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner fade-in">
+    <h2>Está na hora de<br>ter um site que<br><em>realmente funciona.</em></h2>
+    <p>Próxima entrega em 48h · Orçamento grátis · Garantia de satisfação 100%</p>
+    <a href="https://wa.me/5535992669710?text=Oi%20Joaz!%20Vi%20seu%20site%20e%20quero%20um%20or%C3%A7amento%20para%20[descreva%20seu%20projeto]" class="cta-whatsapp" target="_blank">
+      Começar agora (chat) →
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Joaz Rodrigues · Desenvolvedor Web + Designer</p>
+  <div class="footer-links">
+    <a href="https://instagram.com" target="_blank">Instagram</a>
+    <a href="https://wa.me/5535992669710" target="_blank">WhatsApp</a>
+    <a href="mailto:contato@joaz.dev" target="_blank">Email</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
